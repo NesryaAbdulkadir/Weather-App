@@ -12,7 +12,11 @@ export default function Front() {
 
   // call search function on mount
   useEffect(() => {
-    search(city);
+    const city = JSON.parse(localStorage.getItem("city"));
+    if (city) {
+      setCity(city);
+      search(city);
+    }
   }, []);
 
   // fetch api using city name
@@ -35,6 +39,7 @@ export default function Front() {
         location: data.name,
         icon: imageUrl,
       });
+      localStorage.setItem("city", JSON.stringify(city));
     } catch (error) {
       console.log(error);
     }
